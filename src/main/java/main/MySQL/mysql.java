@@ -16,8 +16,6 @@ import java.util.Date;
 public class mysql {
 
     static String user = "root";
-    static String password = "";
-    static String url = "";
 /*
     public static void ReadMySql() {
         //String url = "jdbc:mysql://localhost:3306?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Berlin";

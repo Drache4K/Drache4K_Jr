@@ -28,9 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.security.auth.login.LoginException;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalTime;
 
 import static net.dv8tion.jda.api.interactions.commands.OptionType.INTEGER;
@@ -40,6 +38,7 @@ import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
 public class Haupt {
     public static String url = "";
     public static String password = "";
+    public static String log ="";
     public static void main(String[] args) throws LoginException, InterruptedException, IOException {
 
         String status;
@@ -151,8 +150,14 @@ public class Haupt {
 class BotThings extends ListenerAdapter {
     @Override
     public void onReady(@NotNull ReadyEvent event) {
+        ByteArrayOutputStream error = new ByteArrayOutputStream();
+        PrintStream er = new PrintStream(error);
+        PrintStream old = System.err;
+
+        System.setErr(er);
         System.out.println(event.getJDA().getSelfUser() + " ist on!");
-        event.getJDA().getUserById(Haupt.Drache4K).openPrivateChannel().complete().sendMessage("Bot ist on!").queue();
+        //event.getJDA().getUserById(Haupt.Drache4K).openPrivateChannel().complete().sendMessage("Bot ist on!").queue();
+
         /*
         for (Guild i :event.getJDA().getGuilds()) {
             //System.out.println(i.getName() + " ->  "+ i.getId().toString());
@@ -171,8 +176,20 @@ class BotThings extends ListenerAdapter {
         Boolean add = true;
         List mysql;
 
+        mysql = main.MySQL.mysql.QuarryLineMySql("SHOW tables;");
+        //System.out.println(mysql.getItems());
         for (Guild i : event.getJDA().getGuilds()) {
-            main.MySQL.mysql.ExecuteMySql("CREATE TABLE u" + i.getId().toString() + " (" + Haupt.DatenTable + " );");
+            add = true;
+            for (String l : mysql.getItems()) {
+                //System.out.println("Name: " + l);
+                if (("u"+i.getId().toString()).equals(l.toString())) {
+                    add = false;
+                }
+            }
+
+            if (add) {
+                main.MySQL.mysql.ExecuteMySql("CREATE TABLE u" + i.getId().toString() + " (" + Haupt.DatenTable + " );");
+            }
         }
 
 
@@ -206,6 +223,11 @@ class BotThings extends ListenerAdapter {
                 }
             }
         }
+
+        System.err.flush();
+        System.setErr(old);
+        System.out.println(error.toString());
+        event.getJDA().getUserById(Haupt.Drache4K).openPrivateChannel().complete().sendMessage(event.getJDA().getSelfUser()  + " ist on!\n \n" + error.toString()).queue();
     }
 
 }
