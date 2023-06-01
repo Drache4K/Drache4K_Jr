@@ -1,5 +1,7 @@
 package main.MySQL;
 
+import main.Haupt;
+
 import java.awt.*;
 import java.sql.*;
 import javax.sql.*;
@@ -80,7 +82,7 @@ public class mysql {
         }*/
 
         System.out.println("Connect...");
-        try (Connection conn = DriverManager.getConnection(url, user, password)){
+        try (Connection conn = DriverManager.getConnection(Haupt.url, user, Haupt.password)){
 
             System.out.println("Erfolgreich mit Datenbank verbunden.");
 
@@ -112,7 +114,7 @@ public class mysql {
 
         ResultSet rs;
         //Boolean rs;
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+        try (Connection conn = DriverManager.getConnection(Haupt.url, user, Haupt.password)) {
 
             System.out.println("Erfolgreich mit Datenbank verbunden.");
 
@@ -160,7 +162,7 @@ public class mysql {
 
         ResultSet rs;
         //Boolean rs;
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+        try (Connection conn = DriverManager.getConnection(Haupt.url, user, Haupt.password)) {
 
             System.out.println("Erfolgreich mit Datenbank verbunden.");
 
@@ -206,7 +208,7 @@ public class mysql {
 
         ResultSet rs;
         //Boolean rs;
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+        try (Connection conn = DriverManager.getConnection(Haupt.url, user, Haupt.password)) {
 
             System.out.println("Erfolgreich mit Datenbank verbunden.");
 

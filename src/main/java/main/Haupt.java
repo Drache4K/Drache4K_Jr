@@ -38,6 +38,8 @@ import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
 
 
 public class Haupt {
+    public static String url = "";
+    public static String password = "";
     public static void main(String[] args) throws LoginException, InterruptedException, IOException {
 
         String status;
@@ -48,14 +50,20 @@ public class Haupt {
         BufferedReader br = new BufferedReader(new FileReader("/home/pi/DcBot/token.txt"));
         try {
             StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
 
-            token = line.toString();
+            token = br.readLine();
+            password = br.readLine();
+            url = br.readLine();
+
+
+            //token = line.toString();
         } finally {
             br.close();
         }
 
         System.out.println(token);
+        System.out.println(password);
+        System.out.println(url);
 
 
         JDA Bot = JDABuilder.createDefault(token)
@@ -145,8 +153,8 @@ class BotThings extends ListenerAdapter {
     public void onReady(@NotNull ReadyEvent event) {
         System.out.println(event.getJDA().getSelfUser() + " ist on!");
         event.getJDA().getUserById(Haupt.Drache4K).openPrivateChannel().complete().sendMessage("Bot ist on!").queue();
-
-        /*for (Guild i :event.getJDA().getGuilds()) {
+        /*
+        for (Guild i :event.getJDA().getGuilds()) {
             //System.out.println(i.getName() + " ->  "+ i.getId().toString());
             //System.out.println(i.getDefaultChannel().getName().toString());
             //i.getTextChannelById(i.getDefaultChannel().getId().toString()).sendMessage("Merry Christmas!").queue();
