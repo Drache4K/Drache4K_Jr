@@ -19,20 +19,7 @@ import java.util.List;
 public class Reacktion extends ListenerAdapter {
 
     public void onMessageReceived(MessageReceivedEvent ereignes) {
-        if (ereignes.getAuthor().isBot()) {
-            return;
-        }
-
-
-        List<String> Hello = Arrays.asList("Hallo", "Hi", "hallo", "hi", "Moin", "moin", "Guten Morgen", "Guten Abend", "Nabend", "Morgen", "Servus");
-        Random random = new Random();
-
-        //ereignes.getChannel().sendTyping().queue();
-
-        String Userping = ereignes.getAuthor().getAsMention();
-        String Username = ereignes.getAuthor().getAsTag();
-
-        Emoji Hi = Emoji.fromFormatted("👋");
+        if (ereignes.getAuthor().isBot())return;
 
 
         if (ereignes.isFromGuild()) {
@@ -49,6 +36,19 @@ public class Reacktion extends ListenerAdapter {
             System.out.println("Privat" + ": " + ereignes.getAuthor() + "->" + ereignes.getMessage());
             //ereignes.getChannel().sendTyping().queue();
         }
+
+        if(ereignes.getChannel().getId().equals("1122903099116368045"))return;
+
+
+        List<String> Hello = Arrays.asList("Hallo", "Hi", "hallo", "hi", "Moin", "moin", "Guten Morgen", "Guten Abend", "Nabend", "Morgen", "Servus");
+        Random random = new Random();
+
+        //ereignes.getChannel().sendTyping().queue();
+
+        String Userping = ereignes.getAuthor().getAsMention();
+        String Username = ereignes.getAuthor().getAsTag();
+
+        Emoji Hi = Emoji.fromFormatted("👋");
 
         /*if (ereignes.getMessage().getContentStripped().equals("Hallo")){
             ereignes.getChannel().sendMessage("Hallo " + Username).queue();

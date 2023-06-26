@@ -19,7 +19,8 @@ public class ComSmall extends ListenerAdapter {
 
             embet.setAuthor(event.getUser().getName());
             embet.setColor(0xd31212);
-            embet.setDescription(event.getGuild().toString());
+            if(event.isFromGuild()) {embet.setDescription(event.getGuild().toString());
+            }else{embet.setDescription("Privat message");}
             embet.setTitle("Report");
             embet.setThumbnail(event.getUser().getAvatarUrl());
             embet.addBlankField(false);

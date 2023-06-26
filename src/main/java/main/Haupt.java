@@ -71,6 +71,7 @@ public class Haupt {
 
                 //Alles zum Aufsetzen___________
                 .addEventListeners(new Reacktion())
+                .addEventListeners(new RolePlay())
                 .addEventListeners(new BotThings())
 
                 .addEventListeners(new ComPet())
