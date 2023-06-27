@@ -74,6 +74,7 @@ public class Haupt {
                 .addEventListeners(new RolePlay())
                 .addEventListeners(new BotThings())
 
+                .addEventListeners(new ReaktionRoll())
                 .addEventListeners(new ComPet())
                 .addEventListeners(new ComHelp())
                 .addEventListeners(new ComMySql())
@@ -132,6 +133,11 @@ public class Haupt {
         Bot.upsertCommand("dc", "Show the Stats")
                 .addOptions(new OptionData(OptionType.USER, "user", "The user to give").setRequired(false)).queue();
 
+        Bot.upsertCommand("role", "Get a Message With Rekation for roll") //getGuildById("849582114713763840").
+                .addOptions(new OptionData(OptionType.ROLE, "role", "The ID of the Roll").setRequired(true))
+                .addOptions(new OptionData(STRING, "emoji", "The Emojie you whant to be reaktet").setRequired(true))
+                .addOptions(new OptionData(STRING, "message", "What stands in the Message to Reakt to").setRequired(false))
+                .addOptions(new OptionData(STRING, "msg_id", "If you want to hang to a message").setRequired(false)).queue();
 
         //main.plugin.StringServer.Start();
         //while (1 == 1){
@@ -157,6 +163,10 @@ class BotThings extends ListenerAdapter {
 
         System.setErr(er);
         System.out.println(event.getJDA().getSelfUser() + " ist on!");
+
+        main.MySQL.mysql.ExecuteMySql("CREATE TABLE IF NOT EXISTS RP (MsgID TEXT, Msg Text, UserID TEXT);");
+        main.MySQL.mysql.ExecuteMySql("CREATE TABLE IF NOT EXISTS Roles (MsgID TEXT, Emoji Text, RoleID TEXT);");
+
         //event.getJDA().getUserById(Haupt.Drache4K).openPrivateChannel().complete().sendMessage("Bot ist on!").queue();
 
         /*

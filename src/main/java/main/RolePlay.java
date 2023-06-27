@@ -11,7 +11,7 @@ public class RolePlay extends ListenerAdapter {
         if(ereignes.getAuthor().isBot())return;
         if(ereignes.getChannel().getId().equals("1122903099116368045")){
             //ereignes.getChannel().sendMessage("Get it").queue();
-           String Msg = ereignes.getMessage().getContentStripped();
+           String Msg = ereignes.getMessage().getContentRaw();
            String MsgID = ereignes.getMessageId();
            String UserID = ereignes.getAuthor().getId();
            main.MySQL.mysql.ExecuteMySql("INSERT INTO RP VALUES (\""+MsgID+"\", \""+Msg+"\", \""+UserID+"\");");
@@ -20,13 +20,16 @@ public class RolePlay extends ListenerAdapter {
     }
 
     public void onMessageDelete(MessageDeleteEvent event) {
+        if(event.getChannel().getId().equals("1122903099116368045")){
         String MsgID = event.getMessageId();
         main.MySQL.mysql.ExecuteMySql("DELETE FROM RP WHERE MsgID like \""+MsgID+"\";");
-    }
+    }}
 
     public void onMessageUpdate(MessageUpdateEvent event) {
+        if(event.getAuthor().isBot())return;
+        if(event.getChannel().getId().equals("1122903099116368045")){
         String MsgID = event.getMessageId();
-        String Msg = event.getMessage().getContentStripped();
+        String Msg = event.getMessage().getContentRaw();
         main.MySQL.mysql.ExecuteMySql("UPDATE RP SET Msg = \""+Msg+"\" WHERE MsgID LIKE \""+MsgID+"\";");
-    }
+    }}
 }

@@ -241,7 +241,10 @@ public class mysql {
             System.out.println( "Error: " + ex.getMessage());
 
         }
-        if(reply.getItem(0)== ""){
+        if (reply.getItemCount() <=0){
+            return "0";
+        }
+        if(reply.getItem(0).equals("")){
             return "0";
         }else return reply.getItem(0);
     }
