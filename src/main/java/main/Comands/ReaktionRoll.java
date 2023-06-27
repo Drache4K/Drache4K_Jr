@@ -20,6 +20,9 @@ public class ReaktionRoll extends ListenerAdapter {
 
         if (Comand.equals("role")) {
             //event.deferReply().queue();
+            if(event.getUser().getId() != Haupt.Drache4K){
+                System.out.println("Good Try:"+event.getUser().getId());
+            }
 
             Role rolle = event.getOption("role").getAsRole();
             String Emoji = String.valueOf(event.getOption("emoji").getAsString());
