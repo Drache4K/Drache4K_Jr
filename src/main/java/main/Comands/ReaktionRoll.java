@@ -38,7 +38,8 @@ public class ReaktionRoll extends ListenerAdapter {
             //event.getHook().sendMessage("Yee").queue();
             if (MsgID[0] == null) {
                 event.deferReply().queue();
-                event.getHook().sendMessage(Msg).queue((message) -> {
+                event.getHook().deleteOriginal().queue();
+                event.getMessageChannel().sendMessage(Msg).queue((message) -> {
                     MsgID[0] = message.getId();
                     main.MySQL.mysql.ExecuteMySql("INSERT INTO Roles VALUES (\"" + MsgID[0] + "\", \"" + Emoji + "\", \"" + rolle.getId() + "\");");
                     message.addReaction(net.dv8tion.jda.api.entities.emoji.Emoji.fromFormatted(Emoji)).queue();
@@ -60,6 +61,7 @@ public class ReaktionRoll extends ListenerAdapter {
 
     @Override
     public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
+        if(event.getUser().isBot()) return;
         User user = event.getUser();
         String MsgID = event.getMessageId();
         String Emoji = event.getEmoji().getFormatted();
@@ -71,6 +73,7 @@ public class ReaktionRoll extends ListenerAdapter {
 
     @Override
     public void onMessageReactionRemove(@NotNull MessageReactionRemoveEvent event) {
+        if(event.getUser().isBot()) return;
         User user = event.getUser();
         String MsgID = event.getMessageId();
         String Emoji = event.getEmoji().getFormatted();
