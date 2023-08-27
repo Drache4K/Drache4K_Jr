@@ -113,7 +113,7 @@ public class Haupt {
                 .addOptions(new OptionData(STRING, "message", "Your Message to Drache4K").setRequired(true)).queue();
 
         Bot.upsertCommand("avatar", "Get the Avatar fom a User")
-                .addOptions(new OptionData(OptionType.USER, "user", "the User").setRequired(true)).queue();
+                .addOptions(new OptionData(OptionType.USER, "user", "User or UserID")) .queue();
 
         Bot.upsertCommand("server", "Get the server fom a Id")
                 .addOptions(new OptionData(STRING, "id", "Server Id").setRequired(true)).queue();

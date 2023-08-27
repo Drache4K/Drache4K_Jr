@@ -20,46 +20,54 @@ public class ReaktionRoll extends ListenerAdapter {
 
         if (Comand.equals("role")) {
             //event.deferReply().queue();
-            if(event.getUser().getId() != Haupt.Drache4K){
-                System.out.println("Good Try:"+event.getUser().getId());
-            }
+            if(event.getUser().getId().toString().equals(Haupt.Drache4K)) {
 
-            Role rolle = event.getOption("role").getAsRole();
-            String Emoji = String.valueOf(event.getOption("emoji").getAsString());
-            String Msg = "Reakt with " + Emoji + " to get " + rolle.getAsMention();
-            final String[] MsgID = {null};
-
-
-            if (event.getOption("msg_id") != null) {
-                MsgID[0] = String.valueOf(event.getOption("msg_id").getAsString());
-
-            } else if (event.getOption("message") != null) {
-                Msg = String.valueOf(event.getOption("message").getAsString());
-            }
+                Role rolle = event.getOption("role").getAsRole();
+                String emoji = String.valueOf(event.getOption("emoji").getAsString());
+                Emoji Emoji = net.dv8tion.jda.api.entities.emoji.Emoji.fromFormatted(emoji);
+                String Msg = "Reakt with " + Emoji + " to get " + rolle.getAsMention();
+                final String[] MsgID = {null};
 
 
-            //event.getHook().sendMessage("Yee").queue();
-            if (MsgID[0] == null) {
-                event.deferReply().queue();
-                event.getHook().deleteOriginal().queue();
-                event.getMessageChannel().sendMessage(Msg).queue((message) -> {
-                    MsgID[0] = message.getId();
-                    main.MySQL.mysql.ExecuteMySql("INSERT INTO Roles VALUES (\"" + MsgID[0] + "\", \"" + Emoji + "\", \"" + rolle.getId() + "\");");
-                    message.addReaction(net.dv8tion.jda.api.entities.emoji.Emoji.fromFormatted(Emoji)).queue();
-                });
+                if (event.getOption("msg_id") != null) {
+                    MsgID[0] = String.valueOf(event.getOption("msg_id").getAsString());
 
-            } else {
-                main.MySQL.mysql.ExecuteMySql("INSERT INTO Roles VALUES (\"" + MsgID[0] + "\", \"" + Emoji + "\", \"" + rolle.getId() + "\");");
-                event.getMessageChannel().addReactionById(MsgID[0].toString(), net.dv8tion.jda.api.entities.emoji.Emoji.fromFormatted(Emoji)).queue();
-                event.deferReply().queue();
-                event.getHook().deleteOriginal().queue();
+                } else if (event.getOption("message") != null) {
+                    Msg = String.valueOf(event.getOption("message").getAsString());
+                }
+
+
+                //event.getHook().sendMessage("Yee").queue();
+                if (MsgID[0] == null) {
+                    System.out.println("Crerat Meesage for Role");
+                    event.deferReply().queue();
+                    event.getHook().deleteOriginal().queue();
+                    event.getMessageChannel().sendMessage(Msg).queue((message) -> {
+                        MsgID[0] = message.getId();
+                        main.MySQL.mysql.ExecuteMySql("INSERT INTO Roles VALUES (\"" + MsgID[0] + "\", \"" + Emoji + "\", \"" + rolle.getId() + "\");");
+                        message.addReaction(Emoji).queue();
+                    });
+
+                } else {
+                    System.out.println("Atach Role");
+                    main.MySQL.mysql.ExecuteMySql("INSERT INTO Roles VALUES (\"" + MsgID[0] + "\", \"" + Emoji + "\", \"" + rolle.getId().toString() + "\");");
+                    event.getMessageChannel().addReactionById(MsgID[0].toString(), Emoji).queue();
+                    event.deferReply().queue();
+                    event.getHook().deleteOriginal().queue();
+                }
+
+            }else{
+                System.out.println("Good Try:"+event.getUser().getId() +"your not "+Haupt.Drache4K);
             }
 
         }
     }
-    public void onMessageDelete(MessageDeleteEvent event) {
+    public void onMessageDelete(@NotNull MessageDeleteEvent event) {
+        /*
         String MsgID = event.getMessageId();
         main.MySQL.mysql.ExecuteMySql("DELETE FROM Roles WHERE MsgID like \"" + MsgID + "\";");
+        System.out.println("Deletet all Roles reaktion from "+ MsgID);
+         */
     }
 
     @Override
@@ -67,10 +75,11 @@ public class ReaktionRoll extends ListenerAdapter {
         if(event.getUser().isBot()) return;
         User user = event.getUser();
         String MsgID = event.getMessageId();
-        String Emoji = event.getEmoji().getFormatted();
+        Emoji Emoji = event.getEmoji();
         String RoleID = main.MySQL.mysql.QuarryItemMySql("SELECT RoleID FROM Roles WHERE MsgID like \""+MsgID+"\" AND Emoji like \""+Emoji+"\";");
         if(RoleID.equals("0")) return;
         Role role =  event.getGuild().getRoleById(RoleID);
+        System.out.println(Emoji + ">>"+ RoleID);
         event.getGuild().addRoleToMember(user, role).queue();
     }
 
@@ -79,7 +88,7 @@ public class ReaktionRoll extends ListenerAdapter {
         if(event.getUser().isBot()) return;
         User user = event.getUser();
         String MsgID = event.getMessageId();
-        String Emoji = event.getEmoji().getFormatted();
+        Emoji Emoji = event.getEmoji();
         String RoleID = main.MySQL.mysql.QuarryItemMySql("SELECT RoleID FROM Roles WHERE MsgID like \""+MsgID+"\" AND Emoji like \""+Emoji+"\";");
         if(RoleID.equals("0")) return;
         Role role =  event.getGuild().getRoleById(RoleID);

@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 public class RolePlay extends ListenerAdapter {
-    public void onMessageReceived(MessageReceivedEvent ereignes) {
+    public void onMessageReceived(@NotNull MessageReceivedEvent ereignes) {
         if(ereignes.getAuthor().isBot())return;
         if(ereignes.getChannel().getId().equals("1122903099116368045")){
             //ereignes.getChannel().sendMessage("Get it").queue();
@@ -19,13 +19,13 @@ public class RolePlay extends ListenerAdapter {
         }
     }
 
-    public void onMessageDelete(MessageDeleteEvent event) {
+    public void onMessageDelete(@NotNull MessageDeleteEvent event) {
         if(event.getChannel().getId().equals("1122903099116368045")){
         String MsgID = event.getMessageId();
         main.MySQL.mysql.ExecuteMySql("DELETE FROM RP WHERE MsgID like \""+MsgID+"\";");
     }}
 
-    public void onMessageUpdate(MessageUpdateEvent event) {
+    public void onMessageUpdate(@NotNull MessageUpdateEvent event) {
         if(event.getAuthor().isBot())return;
         if(event.getChannel().getId().equals("1122903099116368045")){
         String MsgID = event.getMessageId();
