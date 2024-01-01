@@ -3,8 +3,8 @@ package main;
 //import com.mysql.cj.jdbc.exceptions.MySQLQueryInterruptedException;
 
 import main.Comands.*;
-import main.DC.Anmeldung;
-import main.DC.DCget;
+import main.DC.*;
+import main.SendMessage;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -29,7 +29,10 @@ import javax.security.auth.login.LoginException;
 
 import java.awt.*;
 import java.io.*;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 
 import static net.dv8tion.jda.api.interactions.commands.OptionType.INTEGER;
 import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
@@ -39,6 +42,7 @@ public class Haupt {
     public static String url = "";
     public static String password = "";
     public static String log ="";
+    public static JDA bot;
     public static void main(String[] args) throws LoginException, InterruptedException, IOException {
 
         String status;
@@ -94,7 +98,6 @@ public class Haupt {
 
         CommandListUpdateAction commands = Bot.updateCommands();
 
-
         Bot.upsertCommand("pet", "Stroke Drache4K Jr.") //getGuildById("849582114713763840").
                 .addOptions(new OptionData(OptionType.INTEGER, "time", "How long du you want to stroke Drache4K Jr.").setRequiredRange(1, 9)).queue();
 
@@ -139,12 +142,29 @@ public class Haupt {
                 .addOptions(new OptionData(STRING, "message", "What stands in the Message to Reakt to").setRequired(false))
                 .addOptions(new OptionData(STRING, "msg_id", "If you want to hang to a message").setRequired(false)).queue();
 
+        System.out.println("Bot: "+Haupt.bot +" !!!!!!!!!!!!!!!");
+        //SendMessage.SendToAllUser( "Happy New Year ");
+        while (1 == 1){
+            LocalDateTime time = LocalDateTime.now();
+            //LocalTime time = LocalTime.now();
+            //ime.toString()
+            Integer s = time.getSecond();
+            Integer M = time.getMinute();
+            Integer h = time.getHour();
+            Integer d = time.getDayOfMonth();
+            Integer mo = time.getMonthValue();
+            Integer Y = time.getYear();
+
+
+            //System.out.println(time.toString());
+            if(s==0 & M==0 & h==0 & d == 1 & mo == 1){
+                SendMessage.SendToAllUser( "Happy New Year " + Y.toString());
+            }
+
+            Thread.sleep(1000);
+        }
         //main.plugin.StringServer.Start();
-        //while (1 == 1){
-        //LocalTime time = LocalTime.now();
-        //System.out.println(time.getHour());
-        //Thread.sleep(4000);
-        //}
+
     }
 
     public static Emoji DC = Emoji.fromCustom("DragonCoin", Long.parseLong("953410089639899196"), false);
@@ -238,7 +258,13 @@ class BotThings extends ListenerAdapter {
         System.err.flush();
         System.setErr(old);
         System.out.println(error.toString());
-        event.getJDA().getUserById(Haupt.Drache4K).openPrivateChannel().complete().sendMessage(event.getJDA().getSelfUser()  + " ist on!\n \n" + error.toString()).queue();
+
+        Haupt.bot = event.getJDA();
+        SendMessage.SendMessageToUser(Haupt.Drache4K, event.getJDA().getSelfUser()  + " ist on!\n \n" + error.toString());
+
+        //event.getJDA().getUserById(Haupt.Drache4K).openPrivateChannel().complete().sendMessage(event.getJDA().getSelfUser()  + " ist on!\n \n" + error.toString()).queue();
+
     }
+
 
 }
