@@ -28,7 +28,7 @@ public class DCget extends ListenerAdapter {
 
         if (Comand.equals("get")) {
             event.deferReply().queue();
-            if (event.getUser().getId().toString().equals(Haupt.Drache4K)) {
+            if(Haupt.isMe(event.getMember().getUser().getId().toString())) {
                 User user = event.getOption("user").getAsUser();
                 Integer DC = event.getOption("dc").getAsInt();
 
@@ -45,7 +45,7 @@ public class DCget extends ListenerAdapter {
             }
         } else if (Comand.equals("del")) {
             event.deferReply().queue();
-            if (event.getUser().getId().toString().equals(Haupt.Drache4K)) {
+            if(Haupt.isMe(event.getMember().getUser().getId().toString())) {
                 User user = event.getOption("user").getAsUser();
                 Integer DC = event.getOption("dc").getAsInt();
 
@@ -79,7 +79,7 @@ public class DCget extends ListenerAdapter {
                 embet.setDescription("Acept transfere");
                 embet.setTitle("Do you want to give "+reciv+" "+DC+ Haupt.DCemoji+ "?");
                 embet.setThumbnail(event.getJDA().getSelfUser().getEffectiveAvatarUrl());
-                embet.setFooter("Developer: Drache4K#9323");
+                embet.setFooter("Developer: Spike4K");
 
                 event.getHook().sendMessageEmbeds(embet.build()).addActionRow(butten).queue();
 
@@ -121,7 +121,7 @@ public class DCget extends ListenerAdapter {
             embet.setTitle("DC");
             embet.setThumbnail(event.getJDA().getSelfUser().getEffectiveAvatarUrl());
             embet.addField("Dragon Coins", mysql.QuarryItemMySql("SELECT dc FROM u0 WHERE id =" + user.getId().toString() + ";") + Haupt.DCemoji, true);
-            embet.setFooter("Developer: Drache4K#9323");
+            embet.setFooter("Developer: Spike4K");
 
             event.getHook().sendMessageEmbeds(embet.build()).setEphemeral(true).queue();
         }
@@ -172,7 +172,7 @@ public class DCget extends ListenerAdapter {
                     embet.setColor(0xd31212);
                     embet.setTitle("Trasfere successful "+ DC.toString() + Haupt.DCemoji);
                     embet.setThumbnail(event.getJDA().getSelfUser().getEffectiveAvatarUrl());
-                    embet.setFooter("Developer: Drache4K#9323");
+                    embet.setFooter("Developer: Spike4K");
 
                     event.getHook().editOriginalEmbeds(embet.build()).queue();
                     event.deferEdit().queue();

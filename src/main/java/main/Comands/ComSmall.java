@@ -27,7 +27,7 @@ public class ComSmall extends ListenerAdapter {
             embet.addField("Messag", event.getOption("message").getAsString(), false);
             embet.addBlankField(false);
             embet.addField("User", event.getUser().getAsTag(), false);
-            embet.setFooter("Developer: Drache4K#9323");
+            embet.setFooter("Developer: Spike4K");
 
             event.getHook().sendMessage("Message sent, please be patient!").queue();
             event.getJDA().getUserById(Haupt.Drache4K).openPrivateChannel().complete().sendMessageEmbeds(embet.build()).queue();

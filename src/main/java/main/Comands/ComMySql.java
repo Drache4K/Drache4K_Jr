@@ -1,5 +1,6 @@
 package main.Comands;
 
+import main.Haupt;
 import main.MySQL.mysql;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -13,7 +14,7 @@ public class ComMySql extends ListenerAdapter {
 
         if(Comand.equals("mysql_command")){
             event.deferReply().queue();
-            if(event.getMember().getUser().getId().equals("795949899974836245")) {
+            if(Haupt.isMe(event.getMember().getUser().getId().toString())) {
 
                 String mysql = event.getOption("command").getAsString();
                 if (null != event.getOption("execute")) {
@@ -24,7 +25,7 @@ public class ComMySql extends ListenerAdapter {
 
                 event.getHook().sendMessage(replay).queue();
 
-            }else {event.getHook().sendMessage("Only Drache4K can this!").queue();}
+            }else {event.getHook().sendMessage("Only The Programmer can this!").queue();}
         }
 
     }

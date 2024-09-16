@@ -20,7 +20,7 @@ public class ReaktionRoll extends ListenerAdapter {
 
         if (Comand.equals("role")) {
             //event.deferReply().queue();
-            if(event.getUser().getId().toString().equals(Haupt.Drache4K)) {
+            if(Haupt.isMe(event.getMember().getUser().getId().toString())) {
 
                 Role rolle = event.getOption("role").getAsRole();
                 String emoji = String.valueOf(event.getOption("emoji").getAsString());
@@ -57,7 +57,7 @@ public class ReaktionRoll extends ListenerAdapter {
                 }
 
             }else{
-                System.out.println("Good Try:"+event.getUser().getId() +"your not "+Haupt.Drache4K);
+                System.out.println("Good Try:"+event.getUser().getId() +"your not Allowed to do that");
             }
 
         }

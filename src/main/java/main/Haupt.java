@@ -170,7 +170,17 @@ public class Haupt {
     public static Emoji DC = Emoji.fromCustom("DragonCoin", Long.parseLong("953410089639899196"), false);
     public static String DCemoji = "<:DragonCoin:953410089639899196> ";
     //public String Test = null;
-    public static String Drache4K = "795949899974836245";
+    public static String Drache4K = "889171999698608199";
+
+    public static String[] Programmer = {"889171999698608199","1232416030866018314"};
+    public static boolean isMe(String ID){
+        for(String i : Programmer){
+            if(i.equals(ID)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static String DatenTable = "id Text, dc Text";
 }
