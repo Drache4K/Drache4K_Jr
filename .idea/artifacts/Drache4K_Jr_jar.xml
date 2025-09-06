@@ -40,8 +40,8 @@
       <element id="library" level="project" name="Maven: club.minnced:opus-java:1.1.1" />
       <element id="library" level="project" name="Maven: club.minnced:opus-java-natives:1.1.1" />
       <element id="library" level="project" name="mysql-connector-java-8.0.30" />
-      <element id="file-copy" path="$PROJECT_DIR$/../mysql-connector-java-8.0.30.jar" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../mysql-connector-java-8.0.30.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/mysql-connector-java-8.0.30.jar" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/resources/mysql-connector-java-8.0.30.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
